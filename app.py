@@ -4,7 +4,7 @@ books = {'Name': [], 'Author': [], 'Type': [], 'Notes': []}
 
 def start_app():
     while True:
-        print('BOOK OF BOOKS\n----------')
+        print('Books Read\n----------')
         choice = input('Reply with 1 or 2 \n 1.View books \n 2.Add new book:\n')
         if choice == '1':
             try:
@@ -16,9 +16,9 @@ def start_app():
         elif choice == '2':
             name = input('name of the book : ')
             author = input('name of the author : ')
-            book_type = input('type : ')  # Debug: Changed 'type' to 'book_type' to avoid conflict with built-in type
+            book_type = input('type : ')  
             notes = input('notes : ')
-            add_book(name, author, book_type, notes)  # Debug: Changed 'type' to 'book_type'
+            add_book(name, author, book_type, notes) 
             books_data = pd.DataFrame(books)
             books_data.to_csv('books.csv', sep='\t', index=False)
             print('book saved successfully!')
@@ -30,13 +30,13 @@ def start_app():
         if exit.lower() == 'y':
             pass
         else:
-            print('program terminated')  # Debug: Added 'print' to show termination message
+            print('program terminated') 
             break
 
-def add_book(name, author, book_type, notes):  # Debug: Changed 'type' to 'book_type'
+def add_book(name, author, book_type, notes):
     books['Name'].append(name)
     books['Author'].append(author)
-    books['Type'].append(book_type)  # Debug: Changed 'type' to 'book_type'
+    books['Type'].append(book_type)  
     books['Notes'].append(notes)
 
 start_app()

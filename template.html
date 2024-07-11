@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faisbook</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        color: #1877f2; /* Facebook theme color */
+        text-align: center;
+      }
+      .photo-container {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .photo {
+        max-width: 50%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+      }
+      th {
+        background-color: #f7f7f7;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Faisbook</h1>
+    <div class="photo-container">
+      <img src="photo.jpg" alt="Photo" class="photo" />
+    </div>
+    <div>{{html_table}}</div>
+  </body>
+</html>

@@ -1,42 +1,75 @@
 import pandas as pd
 
-books = {'Name': [], 'Author': [], 'Type': [], 'Notes': []}
+books={
+     'Name':[],
+     'Author':[],
+     'Remarks':[]
+}
 
-def start_app():
-    while True:
-        print('Books Read\n----------')
-        choice = input('Reply with 1 or 2 \n 1.View books \n 2.Add new book:\n')
-        if choice == '1':
-            try:
-                books_df = pd.read_csv('books.csv', sep='\t')  # Debug: Changed 'books' to 'books_df'
-                print(books_df)
-            except FileNotFoundError:
-                print('No books found!')           
+#create html file
+def make_html():
+    df=pd.read_csv('books.csv')
+    html_table=df.to_html(index=False)
+    with open('template.html','r') as file:
+        html_content=file.read()
+        html_content=html_content.replace("{{html_table}}",html_table)
+    with open('index.html','w') as file:
+        file.write(html_content)
 
-        elif choice == '2':
-            name = input('name of the book : ')
-            author = input('name of the author : ')
-            book_type = input('type : ')  
-            notes = input('notes : ')
-            add_book(name, author, book_type, notes) 
-            books_data = pd.DataFrame(books)
-            books_data.to_csv('books.csv', sep='\t', index=False)
-            print('book saved successfully!')
-            
-        else:
-            print('\n enter a valid input \n')
+#add new book
+def add_books():
+  while True:
+    name=input('Name of the book : ')
+    author=input('Name of the author : ')
+    remarks=input('Remarks : ')
+    print(f"\n name :{name}\tauthor:{author}\tremarks:{remarks}")
+    save_book=input('Save ? (y/n): ')
+    if save_book.lower()=='y':
+            books["Name"].append(name)
+            books['Author'].append(author)
+            books["Remarks"].append(remarks)
+    else:
+        print('SHRADHIKKANDE AMBANEE ')
+        pass
+
+    try:
+        df=pd.DataFrame(books)
+        df.to_csv('books.csv', mode='a',index=False,header=False)
+        print('book saved successfully !')
+        break  
+    except Exception as err:
+        print(err)
+
+#view books
+def view_books():
+    try:
+      existing_books=pd.read_csv('books.csv')
+      print(existing_books)
+    except Exception as e :
+        print(f'No books found !: {e}')
         
-        exit = input('continue program..? (y/n)')
-        if exit.lower() == 'y':
+#start app
+def start():
+    while True:
+        print('FaisBook')
+        choice=input('1.View books \n2.Add new books\n\t')
+        if choice=="1":
+            view_books()
+            
+        elif choice=="2":
+            add_books()
+
+        else:
+            print('Enter 1 or 2 only bro!!')
+            pass
+        finish=input('continue? (y/n): ')
+        if finish.lower()=='y':
             pass
         else:
-            print('program terminated') 
+            print('Program terminated')
             break
 
-def add_book(name, author, book_type, notes):
-    books['Name'].append(name)
-    books['Author'].append(author)
-    books['Type'].append(book_type)  
-    books['Notes'].append(notes)
 
-start_app()
+
+start()
+make_html()
